@@ -18,10 +18,12 @@ public class Pizza {
     private Long id;
     private String name;
     private BigInteger money;
-    @OneToMany(mappedBy = "ingredients_id")
+    @OneToMany
+    @JoinColumn(name = "ingredients_id")
     private List<Ingredients> ingredients;
     private String image;
-    @OneToOne(mappedBy = "category_id")
+    @OneToOne
+    @JoinColumn(name = "category_id")
     private Category category;
 
     public Pizza(String name,

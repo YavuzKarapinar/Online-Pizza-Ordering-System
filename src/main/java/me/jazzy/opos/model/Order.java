@@ -15,7 +15,8 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(mappedBy = "user_id")
+    @OneToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Enumerated(EnumType.STRING)
@@ -23,7 +24,8 @@ public class Order {
 
     private LocalDateTime orderDate;
 
-    @OneToOne(mappedBy = "card_id")
+    @OneToOne
+    @JoinColumn(name = "cart_id")
     private Cart cart;
 
 }

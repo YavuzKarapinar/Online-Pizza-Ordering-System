@@ -14,7 +14,8 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany(mappedBy = "pizza_id")
+    @OneToMany
+    @JoinColumn(name = "pizza_id")
     private List<Pizza> pizza;
     private BigInteger costPerUnit;
     private BigInteger totalCost;
