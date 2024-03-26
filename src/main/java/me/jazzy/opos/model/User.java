@@ -31,11 +31,13 @@ public class User implements UserDetails {
                 String lastName,
                 String email,
                 String password,
+                String contactNumber,
                 Role role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.contactNumber = contactNumber;
         this.role = role;
     }
 
