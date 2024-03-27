@@ -19,7 +19,6 @@ public class Pizza {
     private String name;
     private BigInteger money;
     @OneToMany
-    @JoinColumn(name = "ingredients_id")
     private List<Ingredient> ingredients;
     private String image;
     @OneToOne
@@ -29,12 +28,10 @@ public class Pizza {
     public Pizza(String name,
                  BigInteger money,
                  List<Ingredient> ingredients,
-                 String image,
                  Category category) {
         this.name = name;
         this.money = money;
         this.ingredients = ingredients;
-        this.image = image;
         this.category = category;
     }
 }
