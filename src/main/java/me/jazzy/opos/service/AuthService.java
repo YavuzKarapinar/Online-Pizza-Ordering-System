@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class AuthService {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
@@ -37,7 +37,7 @@ public class AuthService {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        userRepository.save(user);
+        userService.saveUser(user);
 
         return new ResponseBody(
                 HttpStatus.CREATED.value(),
