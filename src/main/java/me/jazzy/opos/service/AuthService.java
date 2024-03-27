@@ -7,6 +7,7 @@ import me.jazzy.opos.model.ResponseBody;
 import me.jazzy.opos.model.Role;
 import me.jazzy.opos.model.User;
 import me.jazzy.opos.repository.UserRepository;
+import me.jazzy.opos.security.jwt.JwtGenerator;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,6 +25,7 @@ public class AuthService {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final JwtGenerator jwtGenerator;
 
     public ResponseBody register(RegisterRequest request) {
 
@@ -56,10 +58,11 @@ public class AuthService {
                         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        String token = jwtGenerator.generateToken(request.getEmail());
 
         return new ResponseBody(
                 HttpStatus.OK.value(),
-                "User logged in.",
+                token,
                 LocalDateTime.now()
         );
     }
