@@ -6,7 +6,6 @@ import me.jazzy.opos.dto.RegisterRequest;
 import me.jazzy.opos.model.ResponseBody;
 import me.jazzy.opos.model.Role;
 import me.jazzy.opos.model.User;
-import me.jazzy.opos.repository.UserRepository;
 import me.jazzy.opos.security.jwt.JwtGenerator;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
