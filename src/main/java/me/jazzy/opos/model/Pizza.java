@@ -20,7 +20,7 @@ public class Pizza {
     private BigInteger money;
     @OneToMany
     @JoinColumn(name = "ingredients_id")
-    private List<Ingredients> ingredients;
+    private List<Ingredient> ingredients;
     private String image;
     @OneToOne
     @JoinColumn(name = "category_id")
@@ -28,7 +28,7 @@ public class Pizza {
 
     public Pizza(String name,
                  BigInteger money,
-                 List<Ingredients> ingredients,
+                 List<Ingredient> ingredients,
                  String image,
                  Category category) {
         this.name = name;
