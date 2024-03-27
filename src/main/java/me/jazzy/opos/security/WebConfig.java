@@ -1,6 +1,7 @@
 package me.jazzy.opos.security;
 
 import lombok.AllArgsConstructor;
+import me.jazzy.opos.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,6 +23,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @AllArgsConstructor
 public class WebConfig {
 
+    private final UserService userService;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
@@ -41,7 +44,7 @@ public class WebConfig {
         DaoAuthenticationProvider provider =
                 new DaoAuthenticationProvider();
                 provider.setPasswordEncoder(passwordEncoder());
-                //provider.setUserDetailsService();
+                provider.setUserDetailsService(userService);
         return provider;
     }
 
