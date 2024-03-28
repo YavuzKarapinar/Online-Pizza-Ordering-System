@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigInteger;
 import java.util.List;
 
 @Entity
@@ -17,7 +16,7 @@ public class Pizza {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private BigInteger money;
+    private double money;
     @OneToMany
     private List<Ingredient> ingredients;
     private String image;
@@ -26,7 +25,7 @@ public class Pizza {
     private Category category;
 
     public Pizza(String name,
-                 BigInteger money,
+                 double money,
                  List<Ingredient> ingredients,
                  Category category) {
         this.name = name;
