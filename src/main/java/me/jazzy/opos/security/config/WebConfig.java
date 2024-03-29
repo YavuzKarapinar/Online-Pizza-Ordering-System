@@ -1,4 +1,4 @@
-package me.jazzy.opos.security;
+package me.jazzy.opos.security.config;
 
 import lombok.AllArgsConstructor;
 import me.jazzy.opos.security.jwt.JwtAuthFilter;
@@ -15,7 +15,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -29,6 +28,7 @@ public class WebConfig {
 
     private final UserService userService;
     private final JwtGenerator jwtGenerator;
+    private final PasswordEncoder passwordEncoder;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -54,7 +54,7 @@ public class WebConfig {
     public DaoAuthenticationProvider provider() {
         DaoAuthenticationProvider provider =
                 new DaoAuthenticationProvider();
-                provider.setPasswordEncoder(passwordEncoder());
+                provider.setPasswordEncoder(passwordEncoder);
                 provider.setUserDetailsService(userService);
         return provider;
     }
@@ -70,8 +70,4 @@ public class WebConfig {
         return new JwtAuthFilter(jwtGenerator, userService);
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 }
