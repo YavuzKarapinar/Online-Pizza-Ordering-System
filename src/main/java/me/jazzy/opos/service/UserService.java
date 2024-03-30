@@ -29,6 +29,11 @@ public class UserService implements UserDetailsService {
                     .orElseThrow(() -> new RuntimeException("There is no such user."));
     }
 
+    public User getUserByUsername(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User with " + email + " not found"));
+    }
+
     public void saveUser(User user) {
 
         boolean isEmailAlreadyTaken = userRepository.findByEmail(user.getEmail())
