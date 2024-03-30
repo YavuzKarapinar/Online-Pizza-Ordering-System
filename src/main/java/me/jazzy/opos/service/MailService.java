@@ -1,6 +1,7 @@
 package me.jazzy.opos.service;
 
 import lombok.AllArgsConstructor;
+import me.jazzy.opos.dto.ContactDto;
 import me.jazzy.opos.dto.FeedbackDto;
 import me.jazzy.opos.model.Pizza;
 import me.jazzy.opos.model.ResponseBody;
@@ -24,6 +25,17 @@ public class MailService {
         return new ResponseBody(
                 HttpStatus.OK.value(),
                 "Feedback sent successfully",
+                LocalDateTime.now()
+        );
+    }
+
+    public ResponseBody contact(ContactDto contactDto) {
+        String message = "Dear " + contactDto.getName() + ",\n" + contactDto.getMessage();
+        emailSenderService.sendEmailFrom(contactDto.getEmail(), contactDto.getSubject(), message);
+
+        return new ResponseBody(
+                HttpStatus.OK.value(),
+                "Contact message sent successfully",
                 LocalDateTime.now()
         );
     }

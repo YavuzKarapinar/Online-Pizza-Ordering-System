@@ -23,9 +23,8 @@ public class MailController {
 
     @PostMapping("/contact")
     public ResponseEntity<ResponseBody> contact(@RequestBody ContactDto contactDto) {
-        String message = "Dear " + contactDto.getName() + ",\n" + contactDto.getMessage();
         return new ResponseEntity<>(
-                service.sendEmailFrom(contactDto.getEmail(), contactDto.getSubject(), message),
+                mailService.contact(contactDto),
                 HttpStatus.OK
         );
     }
