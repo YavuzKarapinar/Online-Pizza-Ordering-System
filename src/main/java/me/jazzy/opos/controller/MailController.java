@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import me.jazzy.opos.dto.ContactDto;
 import me.jazzy.opos.dto.FeedbackDto;
 import me.jazzy.opos.model.ResponseBody;
-import me.jazzy.opos.service.EmailSenderService;
 import me.jazzy.opos.service.MailService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class MailController {
 
-    private final EmailSenderService service;
     private final MailService mailService;
 
     @PostMapping("/contact")
