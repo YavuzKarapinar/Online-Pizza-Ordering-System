@@ -40,6 +40,8 @@ public class WebConfig {
                             .permitAll();
                     configurer.requestMatchers(HttpMethod.POST, "/api/v*/auth/register")
                             .permitAll();
+                    configurer.requestMatchers(HttpMethod.POST, "/api/v*/mails/**")
+                            .permitAll();
                     configurer.anyRequest().authenticated();
                 })
                 .csrf(AbstractHttpConfigurer::disable)
