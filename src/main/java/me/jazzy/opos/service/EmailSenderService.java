@@ -1,9 +1,7 @@
 package me.jazzy.opos.service;
 
 import lombok.AllArgsConstructor;
-import me.jazzy.opos.model.ResponseBody;
 import me.jazzy.opos.validator.EmailValidation;
-import org.springframework.http.HttpStatus;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -17,36 +15,28 @@ public class EmailSenderService {
     private JavaMailSender javaMailSender;
     private EmailValidation emailValidation;
 
-    public ResponseBody sendEmailTo(String toEmail,
-                                  String subject,
-                                  String body) {
+    public void sendEmailTo(String toEmail,
+                            String subject,
+                            String body) {
 
         sendMail("yavuzkarapinar0@gmail.com",
                 toEmail,
                 subject,
                 body);
 
-        return new ResponseBody(
-                HttpStatus.OK.value(),
-                "Mail sent successfully.",
-                LocalDateTime.now()
-        );
+        LocalDateTime.now();
     }
 
-    public ResponseBody sendEmailFrom(String fromTo,
-                                  String subject,
-                                  String body) {
+    public void sendEmailFrom(String fromTo,
+                              String subject,
+                              String body) {
 
         sendMail(fromTo,
                 "yavuzkarapinar0@gmail.com",
                 subject,
                 body);
 
-        return new ResponseBody(
-                HttpStatus.OK.value(),
-                "Mail sent successfully.",
-                LocalDateTime.now()
-        );
+        LocalDateTime.now();
     }
 
     private void sendMail(String from,
