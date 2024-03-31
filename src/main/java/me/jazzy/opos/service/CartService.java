@@ -2,6 +2,7 @@ package me.jazzy.opos.service;
 
 import lombok.AllArgsConstructor;
 import me.jazzy.opos.dto.CartDto;
+import me.jazzy.opos.exception.notfound.CartNotFoundException;
 import me.jazzy.opos.model.Cart;
 import me.jazzy.opos.model.CartItem;
 import me.jazzy.opos.model.Pizza;
@@ -20,7 +21,7 @@ public class CartService {
 
     public Cart getCartById(Long id) {
         return cartRepository.findById(id)
-                    .orElseThrow(() -> new RuntimeException("There is no such cart."));
+                    .orElseThrow(() -> new CartNotFoundException("There is no such cart."));
     }
 
     public Cart saveCart(CartDto cartDto) {

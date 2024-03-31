@@ -2,6 +2,8 @@ package me.jazzy.opos.service;
 
 import lombok.AllArgsConstructor;
 import me.jazzy.opos.dto.UserDto;
+import me.jazzy.opos.exception.badrequest.UserBadRequestException;
+import me.jazzy.opos.exception.notfound.UserNotFoundException;
 import me.jazzy.opos.model.User;
 import me.jazzy.opos.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,7 +33,7 @@ public class UserService implements UserDetailsService {
 
     public User getUserByUsername(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User with " + email + " not found"));
+                .orElseThrow(() -> new UserNotFoundException("User with " + email + " not found"));
     }
 
     public void saveUser(User user) {
@@ -40,7 +42,7 @@ public class UserService implements UserDetailsService {
                 .isPresent();
 
         if(isEmailAlreadyTaken)
-            throw new UsernameNotFoundException("Email already taken by another user");
+            throw new UserBadRequestException("Email already taken by another user");
 
         userRepository.save(user);
     }

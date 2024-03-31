@@ -2,6 +2,7 @@ package me.jazzy.opos.service;
 
 import lombok.AllArgsConstructor;
 import me.jazzy.opos.dto.OrderDto;
+import me.jazzy.opos.exception.notfound.OrderNotFoundException;
 import me.jazzy.opos.model.Cart;
 import me.jazzy.opos.model.Order;
 import me.jazzy.opos.model.OrderStatus;
@@ -22,12 +23,12 @@ public class OrderService {
 
     public Order getSpecificOrderByIds(Long userId, Long id) {
         return orderRepository.findSpecificOrderByIds(userId, id)
-                    .orElseThrow(() -> new RuntimeException("User or Orders not found."));
+                    .orElseThrow(() -> new OrderNotFoundException("User or Orders not found."));
     }
 
     public List<Order> getOrderListByUserId(Long userId) {
         return orderRepository.findByUserId(userId)
-                    .orElseThrow(() -> new RuntimeException("User or Orders not found."));
+                    .orElseThrow(() -> new OrderNotFoundException("User or Orders not found."));
     }
 
     public List<Order> getOrders() {

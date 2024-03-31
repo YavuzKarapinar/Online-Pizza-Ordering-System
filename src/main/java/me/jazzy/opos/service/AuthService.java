@@ -3,10 +3,12 @@ package me.jazzy.opos.service;
 import lombok.AllArgsConstructor;
 import me.jazzy.opos.dto.LoginRequest;
 import me.jazzy.opos.dto.RegisterRequest;
+import me.jazzy.opos.exception.notfound.UserNotFoundException;
 import me.jazzy.opos.model.ResponseBody;
 import me.jazzy.opos.model.Role;
 import me.jazzy.opos.model.User;
 import me.jazzy.opos.security.jwt.JwtGenerator;
+import me.jazzy.opos.validator.EmailValidation;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,8 +27,14 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtGenerator jwtGenerator;
+    private final EmailValidation emailValidation;
 
     public ResponseBody register(RegisterRequest request) {
+
+        boolean isValid = emailValidation.test(request.getEmail());
+
+        if(!isValid)
+            throw new UserNotFoundException("There is no such email");
 
         User user = new User(
                 request.getFirstName(),

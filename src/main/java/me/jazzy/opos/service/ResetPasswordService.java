@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import me.jazzy.opos.dto.ChangePasswordRequest;
 import me.jazzy.opos.dto.VerifyCodeDto;
 import me.jazzy.opos.dto.ResetPasswordRequestDto;
+import me.jazzy.opos.exception.badrequest.ResetPasswordBadRequestException;
 import me.jazzy.opos.model.ResetPassword;
 import me.jazzy.opos.model.ResponseBody;
 import me.jazzy.opos.model.User;
@@ -55,7 +56,7 @@ public class ResetPasswordService {
         User user = userService.getUserByUsername(request.getEmail());
 
         if(!request.getNewPassword().equals(request.getNewPasswordConfirm()))
-            throw new RuntimeException("Passwords not same");
+            throw new ResetPasswordBadRequestException("Passwords not same");
 
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));
         userRepository.save(user);
@@ -72,10 +73,10 @@ public class ResetPasswordService {
                 findResetPasswordByEmailAndCode(verifyCodeDto.getEmail(), verifyCodeDto.getCode());
 
         if(isExpired(resetPassword))
-            throw new RuntimeException("Reset Password expired.");
+            throw new ResetPasswordBadRequestException("Reset Password expired.");
 
         if(resetPassword.isEnabled())
-            throw new RuntimeException("Reset code already used.");
+            throw new ResetPasswordBadRequestException("Reset code already used.");
 
         resetPassword.setEnabled(true);
 

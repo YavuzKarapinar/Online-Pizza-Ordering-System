@@ -2,6 +2,7 @@ package me.jazzy.opos.service;
 
 import lombok.AllArgsConstructor;
 import me.jazzy.opos.dto.PizzaDto;
+import me.jazzy.opos.exception.notfound.PizzaNotFoundException;
 import me.jazzy.opos.model.Category;
 import me.jazzy.opos.model.Ingredient;
 import me.jazzy.opos.model.Pizza;
@@ -24,7 +25,7 @@ public class PizzaService {
 
     public Pizza getById(Long id) {
         return  pizzaRepository.findById(id)
-                    .orElseThrow(() -> new RuntimeException("Pizza not found."));
+                    .orElseThrow(() -> new PizzaNotFoundException("Pizza not found."));
     }
 
     public Pizza savePizza(PizzaDto pizzaDto) {
